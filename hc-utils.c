@@ -31,8 +31,7 @@
 #include <string.h>
 #include <errno.h>
 
-#include <slog.h>
-
+#include "slog.h"
 #include "hc-utils.h"
 
 /*********************************************************

@@ -15,7 +15,6 @@
     under the License.
 */
 
-*/
 //-----
 // slog.h - VC Enet syslog support. This file contains definitions for
 //	VC Enet system log support.
