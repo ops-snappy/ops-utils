@@ -23,7 +23,7 @@ pkg_check_modules(SYSTEMD libsystemd)
 
 add_definitions(${SYSTEMD_CFLAGS})
 link_directories(${SYTEMD_LIBRARY_DIRS})
-include_directories(${SYSTEMD_INCLUDE_DIRS} "${CMAKE_SOURCE_DIR}/../../include")
+include_directories(${SYSTEMD_INCLUDE_DIRS})
 
 # Source files to build halon-core library
 set (SOURCES hc-utils.c)
@@ -46,7 +46,7 @@ install(TARGETS ${UTILS_LIBS}
         LIBRARY DESTINATION lib
 )
 
-install(FILES hc-utils.h ../../include/slog.h
+install(FILES hc-utils.h slog.h
 	DESTINATION include)
 
 install(FILES ${CMAKE_BINARY_DIR}/halonutils.pc DESTINATION lib/pkgconfig)
