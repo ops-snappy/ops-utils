@@ -19,7 +19,7 @@ set (UTILS_LIBS halonutils)
 project (${UTILS_LIBS})
 
 include(FindPkgConfig)
-pkg_check_modules(SYSTEMD libsystemd)
+pkg_check_modules(SYSTEMD REQUIRED libsystemd)
 
 add_definitions(${SYSTEMD_CFLAGS})
 link_directories(${SYTEMD_LIBRARY_DIRS})
