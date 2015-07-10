@@ -18,35 +18,32 @@ cmake_minimum_required (VERSION 2.8)
 set (UTILS_LIBS halonutils)
 project (${UTILS_LIBS})
 
+# Rules to locate needed libraries
 include(FindPkgConfig)
-pkg_check_modules(SYSTEMD REQUIRED libsystemd)
-
-add_definitions(${SYSTEMD_CFLAGS})
-link_directories(${SYTEMD_LIBRARY_DIRS})
-include_directories(${SYSTEMD_INCLUDE_DIRS})
 
 # Source files to build halon-core library
 set (SOURCES hc-utils.c)
 
-# Rules to build halon-core library.
+# Rules to build halon-core library
 add_library (${UTILS_LIBS} SHARED ${SOURCES})
-target_link_libraries(${UTILS_LIBS} ${SYSTEMD_LIBRARIES})
 
-set(HALONUTILS_VERSION_MAJOR "0")
-set(HALONUTILS_VERSION_MINOR "1")
-set(HALONUTILS_VERSION_PATCH "0")
-set(HALONUTILS_VERSION "${HALONUTILS_VERSION_MAJOR}.${HALONUTILS_VERSION_MINOR}.${HALONUTILS_VERSION_PATCH}")
+target_link_libraries(${UTILS_LIBS})
+
+set(H_U_VER_MAJOR "0")
+set(H_U_VER_MINOR "1")
+set(H_U_VER_PATCH "0")
+set(HALONUTILS_VERSION "${H_U_VER_MAJOR}.${H_U_VER_MINOR}.${H_U_VER_PATCH}")
 set_target_properties(${UTILS_LIBS} PROPERTIES VERSION ${HALONUTILS_VERSION})
 
 configure_file(halonutils.pc.in halonutils.pc @ONLY)
 
-# Rules to stage halon-core library and header files.
+# Rules to stage halon-core library and header files
 install(TARGETS ${UTILS_LIBS}
-	ARCHIVE DESTINATION lib
+        ARCHIVE DESTINATION lib
         LIBRARY DESTINATION lib
 )
 
-install(FILES hc-utils.h slog.h
-	DESTINATION include)
+install(FILES hc-utils.h
+        DESTINATION include)
 
 install(FILES ${CMAKE_BINARY_DIR}/halonutils.pc DESTINATION lib/pkgconfig)
