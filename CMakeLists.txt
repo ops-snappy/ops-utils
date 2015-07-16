@@ -29,6 +29,9 @@ add_library (${UTILS_LIBS} SHARED ${SOURCES})
 
 target_link_libraries(${UTILS_LIBS})
 
+# Define compile flags
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu99 -Wall -Werror")
+
 set(H_U_VER_MAJOR "0")
 set(H_U_VER_MINOR "1")
 set(H_U_VER_PATCH "0")
