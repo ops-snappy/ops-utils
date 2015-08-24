@@ -15,13 +15,13 @@
 
 cmake_minimum_required (VERSION 2.8)
 
-set (UTILS_LIBS halonutils)
+set (UTILS_LIBS opsutils)
 project (${UTILS_LIBS})
 
 # Rules to locate needed libraries
 include(FindPkgConfig)
 
-# Source files to build halon-core library
+# Source files to build ops-utils library
 set (SOURCES hc-utils.c)
 
 # Rules to build halon-core library
@@ -32,13 +32,13 @@ target_link_libraries(${UTILS_LIBS})
 # Define compile flags
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu99 -Wall -Werror")
 
-set(H_U_VER_MAJOR "0")
-set(H_U_VER_MINOR "1")
-set(H_U_VER_PATCH "0")
-set(HALONUTILS_VERSION "${H_U_VER_MAJOR}.${H_U_VER_MINOR}.${H_U_VER_PATCH}")
-set_target_properties(${UTILS_LIBS} PROPERTIES VERSION ${HALONUTILS_VERSION})
+set(OPS_U_VER_MAJOR "0")
+set(OPS_U_VER_MINOR "1")
+set(OPS_U_VER_PATCH "0")
+set(OPSUTILS_VERSION "${OPS_U_VER_MAJOR}.${OPS_U_VER_MINOR}.${OPS_U_VER_PATCH}")
+set_target_properties(${UTILS_LIBS} PROPERTIES VERSION ${OPSUTILS_VERSION})
 
-configure_file(halonutils.pc.in halonutils.pc @ONLY)
+configure_file(opsutils.pc.in opsutils.pc @ONLY)
 
 # Rules to stage halon-core library and header files
 install(TARGETS ${UTILS_LIBS}
@@ -49,4 +49,4 @@ install(TARGETS ${UTILS_LIBS}
 install(FILES hc-utils.h
         DESTINATION include)
 
-install(FILES ${CMAKE_BINARY_DIR}/halonutils.pc DESTINATION lib/pkgconfig)
+install(FILES ${CMAKE_BINARY_DIR}/opsutils.pc DESTINATION lib/pkgconfig)

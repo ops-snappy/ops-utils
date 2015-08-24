@@ -20,7 +20,7 @@ includedir=${prefix}/include
 
 Name: @CMAKE_PROJECT_NAME@
 Description: Halon utilities
-Version: @HALONUTILS_VERSION@
+Version: @OPSUTILS_VERSION@
 Requires: systemd
-Libs: -L${libdir} -lhalonutils
-Cflags: -I${includedir} 
+Libs: -L${libdir} -lopsutils
+Cflags: -I${includedir}
