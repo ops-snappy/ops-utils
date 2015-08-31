@@ -17,14 +17,19 @@ cmake_minimum_required (VERSION 2.8)
 
 set (UTILS_LIBS opsutils)
 project (${UTILS_LIBS})
+set (SRC_DIR src)
+set (INCL_DIR include)
 
 # Rules to locate needed libraries
 include(FindPkgConfig)
 
 # Source files to build ops-utils library
-set (SOURCES hc-utils.c)
+# OPS_TODO: Temp...remove hc-* after all repos updated
+#set (SOURCES ${SRC_DIR}/ops-utils.c)
+set (SOURCES ${SRC_DIR}/ops-utils.c ${SRC_DIR}/hc-utils.c)
+include_directories (${PROJECT_SOURCE_DIR}/${INCL_DIR})
 
-# Rules to build halon-core library
+# Rules to build ops-utils library
 add_library (${UTILS_LIBS} SHARED ${SOURCES})
 
 target_link_libraries(${UTILS_LIBS})
@@ -38,15 +43,17 @@ set(OPS_U_VER_PATCH "0")
 set(OPSUTILS_VERSION "${OPS_U_VER_MAJOR}.${OPS_U_VER_MINOR}.${OPS_U_VER_PATCH}")
 set_target_properties(${UTILS_LIBS} PROPERTIES VERSION ${OPSUTILS_VERSION})
 
-configure_file(opsutils.pc.in opsutils.pc @ONLY)
+configure_file(${SRC_DIR}/opsutils.pc.in ${SRC_DIR}/opsutils.pc @ONLY)
 
-# Rules to stage halon-core library and header files
+# Rules to stage ops-utils library and header files
 install(TARGETS ${UTILS_LIBS}
         ARCHIVE DESTINATION lib
         LIBRARY DESTINATION lib
 )
 
-install(FILES hc-utils.h
+# OPS_TODO: Temp...remove hc-* after all repos updated
+#install(FILES ${INCL_DIR}/ops-utils.h
+install(FILES ${INCL_DIR}/ops-utils.h ${INCL_DIR}/hc-utils.h
         DESTINATION include)
 
-install(FILES ${CMAKE_BINARY_DIR}/opsutils.pc DESTINATION lib/pkgconfig)
+    install(FILES ${CMAKE_BINARY_DIR}/${SRC_DIR}/opsutils.pc DESTINATION lib/pkgconfig)
