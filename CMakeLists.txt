@@ -24,7 +24,9 @@ set (INCL_DIR include)
 include(FindPkgConfig)
 
 # Source files to build ops-utils library
-set (SOURCES ${SRC_DIR}/ops-utils.c)
+# OPS_TODO: Temp...remove hc-* after all repos updated
+#set (SOURCES ${SRC_DIR}/ops-utils.c)
+set (SOURCES ${SRC_DIR}/ops-utils.c ${SRC_DIR}/hc-utils.c)
 include_directories (${PROJECT_SOURCE_DIR}/${INCL_DIR})
 
 # Rules to build ops-utils library
@@ -49,7 +51,9 @@ install(TARGETS ${UTILS_LIBS}
         LIBRARY DESTINATION lib
 )
 
-install(FILES ${INCL_DIR}/ops-utils.h
+# OPS_TODO: Temp...remove hc-* after all repos updated
+#install(FILES ${INCL_DIR}/ops-utils.h
+install(FILES ${INCL_DIR}/ops-utils.h ${INCL_DIR}/hc-utils.h
         DESTINATION include)
 
     install(FILES ${CMAKE_BINARY_DIR}/${SRC_DIR}/opsutils.pc DESTINATION lib/pkgconfig)
