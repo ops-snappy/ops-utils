@@ -1,4 +1,4 @@
-# Copyright (C) 2015 Hewlett-Packard Development Company, L.P.
+# Copyright (C) 2015-2016 Hewlett-Packard Development Company, L.P.
 # All Rights Reserved.
 #
 #    Licensed under the Apache License, Version 2.0 (the "License"); you may
@@ -22,16 +22,21 @@ set (INCL_DIR include)
 
 # Rules to locate needed libraries
 include(FindPkgConfig)
+pkg_check_modules(OVSCOMMON REQUIRED libovscommon)
+pkg_check_modules(OVSDB REQUIRED libovsdb)
 
 # Source files to build ops-utils library
-set (SOURCES ${SRC_DIR}/ops-utils.c)
-include_directories (${PROJECT_SOURCE_DIR}/${INCL_DIR})
+set (SOURCES ${SRC_DIR}/ops-utils.c ${SRC_DIR}/vrf-utils.c)
 
+include_directories (${PROJECT_BINARY_DIR} ${PROJECT_SOURCE_DIR}/${INCL_DIR}
+                     ${OVSCOMMON_INCLUDE_DIRS}
+                    )
 # Rules to build ops-utils library
 add_library (${UTILS_LIBS} SHARED ${SOURCES})
 
-target_link_libraries(${UTILS_LIBS})
-
+target_link_libraries (${UTILS_LIBS} ${OVSCOMMON_LIBRARIES}
+                       ${OVSDB_LIBRARIES}
+                       -lpthread -lrt)
 # Define compile flags
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu99 -Wall -Werror")
 
@@ -49,7 +54,7 @@ install(TARGETS ${UTILS_LIBS}
         LIBRARY DESTINATION lib
 )
 
-install(FILES ${INCL_DIR}/ops-utils.h
+install(FILES ${INCL_DIR}/ops-utils.h ${INCL_DIR}/vrf-utils.h
         DESTINATION include)
 
     install(FILES ${CMAKE_BINARY_DIR}/${SRC_DIR}/opsutils.pc DESTINATION lib/pkgconfig)
