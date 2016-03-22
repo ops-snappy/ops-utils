@@ -37,6 +37,7 @@
 #define __OPS_UTILS_H_
 
 #include <netinet/ether.h>
+#include "shash.h"
 
 /******************* MATH *************************/
 
@@ -143,6 +144,25 @@ extern int ops_read_pid(const char *filename);
  * @return PID if sucessful, else errno on failure
  ***************************************************************************/
 extern int ops_read_pid_by_procname(const char *procname);
+
+
+/******************* Sort Utility *******************/
+
+/************************************************************************//**
+ * The function is a generic quick sort algorithm
+ *
+ * @param[out] sorted_list  : shash node containing sorted elements. The
+ *                            caller must make sure to allocate/de-allocate
+ *                            memory for sorted_list
+ * @param[in]  sh           : shash node containing unsorted elements
+ * @param[in]  ptr_fuc_sort : pointer to function which contains the
+ *                            compartor logic for sorting algorithm
+ *
+ * @return zero for success, else non-zero on failure
+ ***************************************************************************/
+int
+ops_sort(const struct shash *sh, void *ptr_func_sort,
+         const struct shash_node ** sorted_list);
 
 #endif /* __OPS_UTILS_H_ */
 /** @} end of group ops_utils_public */

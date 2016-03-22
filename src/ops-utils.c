@@ -199,3 +199,33 @@ ops_ether_ulong_long_to_string(char *mac_a, const unsigned long long mac)
 
 	return mac_a;
 } /* ops_ether_ulong_long_to_string */
+
+/*
+ * Sorting function for generic elemnts
+ * on success, returns sorted elemnts list.
+ */
+int
+ops_sort(const struct shash *sh, void *ptr_func_sort,
+         const struct shash_node ** sorted_list)
+
+{
+    int ret_val = 0;
+
+    if (ptr_func_sort == NULL || sorted_list == NULL || shash_is_empty(sh)) {
+        ret_val = 1;
+    } else {
+        struct shash_node *node;
+
+        size_t i, n;
+
+        n = shash_count(sh);
+        i = 0;
+        SHASH_FOR_EACH (node, sh) {
+            sorted_list[i++] = node;
+        }
+        ovs_assert(i == n);
+
+        qsort(sorted_list, n, sizeof *sorted_list, ptr_func_sort);
+    }
+    return ret_val;
+}
