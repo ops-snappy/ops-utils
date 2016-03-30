@@ -36,6 +36,7 @@
 #ifndef __OPS_UTILS_H_
 #define __OPS_UTILS_H_
 
+#include <string.h>
 #include <netinet/ether.h>
 #include "shash.h"
 
@@ -43,6 +44,32 @@
 
 #define OPS_MAC_STR_SIZE	18    /*!< Number of bytes in a MAC ADDR string */
 #define OPS_WWN_STR_SIZE	24    /*!< Number of bytes in a WWN string */
+
+/****** Root directory of well-known files ********/
+char *g_install_rootdir;
+char *g_data_rootdir;
+
+#define ROOTDIR_GSTRS                           \
+  char *g_install_rootdir = "";                 \
+  char *g_data_rootdir = "";
+
+#define ROOTDIR_OPTION_ENUMS                    \
+        OPT_INSTALL_PATH,                       \
+        OPT_DATA_PATH
+
+#define ROOTDIR_LONG_OPTIONS                                            \
+        {"install_path",  required_argument, NULL, OPT_INSTALL_PATH},   \
+        {"data_path",     required_argument, NULL, OPT_DATA_PATH}
+
+#define ROOTDIR_OPTION_HANDLERS                 \
+        case OPT_INSTALL_PATH:                  \
+            g_install_rootdir = strdup(optarg); \
+            break;                              \
+        case OPT_DATA_PATH:                     \
+            g_data_rootdir = strdup(optarg);    \
+            break;
+
+void rootdir_usage(void);
 
 
 /************************************************************************//**

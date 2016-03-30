@@ -229,3 +229,13 @@ ops_sort(const struct shash *sh, void *ptr_func_sort,
     }
     return ret_val;
 }
+
+void
+rootdir_usage(void)
+{
+    printf(
+           "\nRoot Dir options:\n"
+           "  -install_path=PATH  path to installed files root dir\n"
+           "  -data_path=PATH     path to daemon data files root dir\n"
+           );
+}
